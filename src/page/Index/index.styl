@@ -1,0 +1,41 @@
+#Index{
+    width 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .numberWrap{
+        width: 80%;
+        height: 30vw;
+        background: lightgray;
+        border-radius: 2vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .numBox{
+            width: 5vw;
+            height: 8vw;
+            border-radius: 1vw;
+            background: #CCE5FE;
+            margin: 0 0.5vw;
+            overflow: hidden;
+            .numBoxInner{
+                width: 5vw;
+                height: auto;
+                position: relative;
+                top: 0;
+                transition: top .7s;
+                .numItem{
+                    width: 5vw;
+                    height: 8vw;
+                    text-align: center;
+                    line-height: 8vw;
+                    font-size: 4vw;
+                    color: #0079FE;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
