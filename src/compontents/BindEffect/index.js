@@ -74,10 +74,6 @@ export default function BindEffect(props) {
 
     // 提交数据
     const submit = async () => {
-        // setName('面条君')
-        // console.log(name, '--name--BindEffect--')
-        props.updateCount()
-        return;
         if (!(/^1\d{10}$/.test(phoneNum))) return Toast.fail("手机号不正确", 1.5);
         if (!(/^\d{6}$/.test(codeNum))) return Toast.fail("验证码不正确", 1.5);
         let { code, data, message } = await Api.bindInfo(codeNum, phoneNum)

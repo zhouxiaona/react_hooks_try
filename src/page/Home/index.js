@@ -1,11 +1,3 @@
-/*
- * @Author: lei
- * @Date: 2020-12-16 17:47:56
- * @LastEditors: lei
- * @LastEditTime: 2020-12-17 19:36:26
- * @Description: 文件描述
- * @FilePath: \仓库\christmas-activities\src\page\Home\index.js
- */
 import React, { Component } from 'react'
 import './index.styl'
 import temp1 from '../../image/temp1.png'

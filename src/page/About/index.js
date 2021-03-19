@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {
+    useState,
+    useEffect,
+    useRef,
+    useImperativeHandle,
+    forwardRef,
+} from 'react';
 import { connect } from 'react-redux'
 import * as homeActions from '../../redux/actions/home'
 import { bindActionCreators } from 'redux'
@@ -11,65 +17,54 @@ import { browser } from '../../utils/index.js'
 import { Toast } from 'antd-mobile'
 import 'antd-mobile/lib/toast/style/css'
 import './index.styl'
-import Bind from '../../compontents/Bind'
+import BindEffect from '../../compontents/BindEffect'
 
-class About extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            BindOff: false
-        }
-    }
-
-    async componentDidMount() {
-        if (browser.versions._weixin) {
-            console.log('是微信呀')
-        } else if (browser.versions.isxesApp) {
-            AppApi.setTitle('h5_demo')
-            AppApi.cancelLogin()
-            AppApi.setShareContent('邀好友,领好礼', 'https://imgs.xrspy.com/old_new/share.jpg', '送好友9元学10课时名师直播课，15件礼物等你免费拿！', window.location.href)
-            AppApi.navToFeShare(this.testFn)
-            AppApi.guestLogin(this.appGetData)
-            let res = await AppApi.getGuestMode()
-            if (!res) return Toast.fail('AppApi报错,请稍后重试')
-            if (res.state == 0) {
-                await AppApi.openLoginVCOnGuestMode()
+function About(props) {
+    const [BindEffectOff, setBindEffectOff] = useState(false)
+    useEffect(() => {
+        const fetchData = async () => {
+            if (browser.versions._weixin) {
+                console.log('是微信呀')
+            } else if (browser.versions.isxesApp) {
+                AppApi.setTitle('h5_demo')
+                AppApi.cancelLogin()
+                AppApi.setShareContent('邀好友,领好礼', 'https://imgs.xrspy.com/old_new/share.jpg', '送好友9元学10课时名师直播课，15件礼物等你免费拿！', window.location.href)
+                AppApi.navToFeShare(testFn)
+                AppApi.guestLogin(appGetData)
+                let res = await AppApi.getGuestMode()
+                if (!res) return Toast.fail('AppApi报错,请稍后重试')
+                if (res.state == 0) {
+                    await AppApi.openLoginVCOnGuestMode()
+                } else {
+                    appGetData()
+                }
             } else {
-                this.appGetData()
+                console.log('哈哈哈，我是除微信和学而思APP之外的环境~')
             }
-        } else {
-            console.log('哈哈哈，我是除微信和学而思APP之外的环境~')
         }
-    }
+        console.log('useEffect111111111111111111111111111111')
+        fetchData()
+    }, [])
 
-    componentWillUnmount() { }
-
-    testFn = () => {
+    const testFn = () => {
         console.log('分享成功')
     }
 
-    appGetData = async () => {
+    const appGetData = async () => {
         let data = await AppApi.getUserInfo()
         console.log(data, '--data--')
-        console.log(this.props.home.userdata, '--this.props.home.userdata--')
+        console.log(props.home.userdata, '--this.props.home.userdata--')
     }
 
-    render() {
-        const { BindOff } = this.state
-        const { } = this
-        return (
-            <div id="About">
-                <Bind
-                    AlertShow={BindOff}
-                    close={() => this.setState({ BindOff: false })}
-                />
-				H5_DEMO  666
-                <div onClick={() => {
-                    this.setState({ BindOff: true })
-                }}>click Me</div>
-            </div>
-        );
-    }
+    return (
+        <div id="About">
+            <BindEffect
+                AlertShow={BindEffectOff}
+                close={() => setBindEffectOff(false)}
+            />
+            <div onClick={() => setBindEffectOff(true)}>click Me</div>
+        </div>
+    );
 }
 
 const mapState = (state) => ({
