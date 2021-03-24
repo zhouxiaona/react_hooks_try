@@ -34,8 +34,18 @@ function About(props) {
     }, [count])
 
     useEffect(() => {
-        console.log("ref:deom-init", domRef, domRef.current);
-        console.log("ref:child-init", childRef, childRef.current);
+        // console.log("ref:deom-init", domRef, domRef.current);
+        // console.log("ref:child-init", childRef, childRef.current);
+        // console.log(window.location, '--location--')
+        // console.log(window.location.search, '--search--')
+        Object.prototype.a = "jing1";
+        Function.prototype.a = "jing2";
+        function Preson() { };
+        var p = new Preson();
+        console.log(p.a); // jing1
+        console.log(p.constructor); // ƒ function Preson() { };
+        console.log(p.__proto__.__proto__.constructor); // ƒ Object() { [native code] }
+
     }, []);
 
     const showChild = () => {
