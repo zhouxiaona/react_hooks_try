@@ -18,13 +18,10 @@ import { Toast } from 'antd-mobile'
 import 'antd-mobile/lib/toast/style/css'
 import './index.styl'
 
-const Child = forwardRef((props, ref) => {
-    useImperativeHandle(ref, () => ({
-        say: sayHello,
-    }));
-    const sayHello = () => {
-        alert("hello,我是子组件");
-    };
-    return <h3>子组件child</h3>;
-});
-export default Child
+const Child1 = (props, ref) => {
+    useEffect(() => {
+        console.log('我是child1组件')
+    }, [])
+    return <h3>子组件child1</h3>;
+};
+export default Child1;
